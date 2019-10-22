@@ -1,0 +1,23 @@
+{% extends 'ddd/base.html' %}
+
+{% block content %}
+<div id="container">
+    {% if error != None %}
+    <ul class="messagelist">
+        <li class="error">
+            {{error}}
+        </li>
+    </ul>
+    {% endif %}
+
+    <div id="content" class="colM">
+        <h3>Resetear contraseña</h3>
+        <p style="font-size: medium">Usuario: <b>{{ user.username }}</b></p>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'ddd/base.html' %}
+{% block content %}   
+<!-- Content -->
+<div class="page-header">
+    <h3>Alertas</h3>
+</div>
+<div id='tollbar'>
+    <form method="POST">
+        {% csrf_token %}
+        <label for='searchbar'>
+            <img src='/static/admin/img/search.svg' alt='search'>
+        </label>
+        <input type='text' size=40 name='q' value='{{findpass}}' id='searchbar' autofocus>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+        <label><p>{{alerts.count}} alertas encontradas</p></label>
+    </form>
+</div>
+<div class="col-md-12 table-responsive scroll-m">
+    <table class="table-small table table-striped">
+        <thead>
+        <tr>
+            <th>ID Alerta</th>
+            <th>Titulo</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Fecha Alerta</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for alert in alerts %}
+            <tr>
+            <th scope="row">{{ alert.idAlert }}</th>
+            <td>{{ alert.titulo }}</td>
+            <td>{{ alert.descrip }}</td>
+            <td>{{ alert.estado }}</td>
+            <td>{{ alert.falta|date:'d/m/Y H:i:s' }}</td>
+            <td><a href="{% url 'alert_detail' pk=alert.idAlert %}"><span class="glyphicon glyphicon-ok"></span></a></td>
+            </tr>
+            {%empty%}
+                <tr><td style="font-size: small" colspan="6">No hay alertas con la búsqueda actual</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<!-- END Content -->
+{% endblock %}
