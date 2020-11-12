@@ -1,0 +1,52 @@
+<html>
+    <body>
+        {% include "pildoras/pildoras_barra.html" %}
+
+        <h2 style="color: red">Muy buenas chavales.....</h2>
+        <p>El nombre del profesor es: {{nombre_persona}} {{apellido_persona.upper}}</p>
+        <p>Estamos el tema de las plantillas a d&iacutea: {{momento_actual.day}}/{{momento_actual.month}}/{{momento_actual.year}}</p>
+        <p><strong>Temas del curso:</strong></p>
+        <ul>
+        {% if temas %}
+            {% for tema in temas %}
+                <li>{{tema}}</li>
+            {% endfor %}
+        {% else %}
+            <p>No hay elementos que mostrar</p>
+        {% endif %}
+        </ul>
+
+        <p><strong>Temas del curso (uso del empty):</strong></p>
+        <ul>
+        {% for tema in temas %}
+            <li>{{tema}}</li>
+        {%empty%}
+            <p>No hay elementos que mostrar</p>
+        {% endfor %}
+        </ul>
+
+        <p><strong>Sentencias if</strong></p>
+        {% if nombre_persona == 'Jose' %}
+        <p>El curso lo imparte el profesor titular</p>
+        {% else %}
+        <p>El curso lo imparte el profesor suplente</p>
+        {% endif %}
+
+        <p><strong>Comentarios</strong></p>
+        {# Esto es un comentario de una linea #}
+
+        {% comment %}
+            Esto es un comentario
+            de varias lineas
+        {% endcomment %}
+
+        <p><strong>Filtros (pipe):</strong></p>
+        <ul>
+        {% for tema in temas %}
+            <li>{{tema|first|lower}}</li>
+        {%empty%}
+            <p>No hay elementos que mostrar</p>
+        {% endfor %}
+        </ul>
+    </body>
+</html>

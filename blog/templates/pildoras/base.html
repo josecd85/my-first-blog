@@ -1,0 +1,36 @@
+<html>
+<style>
+    #barra{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        text-transform: uppercase;
+    }
+
+    #barra li{
+        display: inline;
+        margin: 0 20px;
+    }
+</style>
+<head>
+    <title>
+        {% block title %} {% endblock %}
+    </title>
+</head>
+<body>
+    <h1 style="background-color: darkolivegreen; color: white; text-align: center;">Píldoras informáticas</h1>
+    <ul id="barra">
+        <li>Home</li>
+        <li>Servicios</li>
+        <li>Quienes somos</li>
+        <li>Contacto</li>
+        <li>Acerca de</li>
+    </ul>
+    <h3>Cursos programación web</h3>
+    
+    {% block content %} {% endblock %}
+
+
+    <p style="background-color: darkolivegreen; color: white; text-align: right;">Cursos gratuitos. Greacias por su visita</p>
+</body>
+</html>

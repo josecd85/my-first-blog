@@ -13,3 +13,14 @@ class Alertas(models.Model):
 
     def __str__(self):
         return str(self.idAlert)+"-"+self.titulo
+
+class Informe001(models.Model):
+    anio = models.IntegerField()
+    mes = models.IntegerField()
+    cemptitu = models.IntegerField()
+    segmento = models.CharField(max_length=50)
+    importe = models.DecimalField(decimal_places=3, max_digits=13)
+
+    def __str__(self):
+        return str(self.anio)+"-"+str(self.mes)+"-"+str(self.cemptitu)+"-"+self.segmento+"-"+str(self.importe)
+    

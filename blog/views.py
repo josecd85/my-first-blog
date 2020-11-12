@@ -4,6 +4,11 @@ from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
 import logging
+#Pildoras
+from django.http import HttpResponse
+import datetime
+from django.template import Template, Context
+from django.template import loader
 
 # Create your views here.
 def post_list(request):
@@ -92,3 +97,69 @@ def comment_del(request, pk):
 
 def prueba1(request):
     return render(request, 'blog/prueba1.html', {})
+
+
+#Pildoras
+def cursoC (request):
+    fecha_actual=datetime.datetime.now()
+
+    return render (request, "pildoras/CursoC.html", {"dameFecha":fecha_actual})
+
+def cursoDjango (request):
+    fecha_actual=datetime.datetime.now()
+
+    return render (request, "pildoras/CursoDjango.html", {"dameFecha":fecha_actual})
+
+class Persona(object):
+    def __init__(self, nombre, apellido):
+        self.nombre=nombre
+        self.apellido=apellido
+    
+
+def saludo (request):
+    p1 = Persona("Jose", "Caballero")
+    ahora=datetime.datetime.now()
+
+    temasCurso = ["Plantillas","Modelos","Formularios","Vistas","Despliegue"]
+
+    # Forma 1
+    # doc_externo=open("C:/virtualEnv/blog/templates/blog/pildoras.html")
+    # plt=Template(doc_externo.read())
+    # doc_externo.close()
+    # ctx=Context({"nombre_persona":p1.nombre, "apellido_persona":p1.apellido, "momento_actual":ahora, "temas":temasCurso})
+    # documento=plt.render(ctx)
+    # return HttpResponse(documento)
+    
+    # Forma 2
+    # doc_externo=loader.get_template('pildoras.html')
+    # documento=doc_externo.render({"nombre_persona":p1.nombre, "apellido_persona":p1.apellido, "momento_actual":ahora, "temas":temasCurso})
+    # return HttpResponse(documento)
+
+    return render(request, "pildoras/pildoras.html", {"nombre_persona":p1.nombre, "apellido_persona":p1.apellido, "momento_actual":ahora, "temas":temasCurso})
+
+def dameFecha (request):
+    fecha_actual=datetime.datetime.now()
+    documento="""
+    <html>
+    <body>
+    <h1>
+    Fecha y hora actuales %s
+    </h1>
+    </body>
+    </html>""" % fecha_actual
+
+    return HttpResponse(documento)
+
+def calculaEdad (request, edad, agno):
+    periodo=agno-2019
+    edadFutura=edad+periodo
+    documento="""
+    <html>
+    <body>
+    <h1>
+    En el año: %s tendrás %s años
+    </h1>
+    </body>
+    </html>""" % (agno, edadFutura)
+
+    return HttpResponse(documento)

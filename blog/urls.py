@@ -16,6 +16,12 @@ urlpatterns = [
     path('prueba1', views.prueba1, name='prueba1'),
     #path('comment/<int:pk>/ok/', views.comment_ok, name='comment_ok'),
     #path('comment/<int:pk>/delete/', views.comment_del, name='comment_del'),
+    #Pildoras
+    path('saludo/', views.saludo),
+    path('fecha/', views.dameFecha),
+    path('edad/<int:edad>/<int:agno>/', views.calculaEdad),
+    path('cursoc/', views.cursoC),
+    path('cursodjango/', views.cursoDjango)
 ]
 
 #url(r'^drafts/$', views.post_draft_list, name='post_draft_list'),

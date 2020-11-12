@@ -59,7 +59,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['C:/virtualEnv/blog/templates/blog'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,7 +90,7 @@ DATABASES = {
         'NAME': 'CFCORCL',
         'USER': 'DJANGO',
         'PASSWORD': 'DJANGO',
-        'HOST': 'ENDESA-EVXFBDR2',
+        'HOST': 'ENDESA-EVXFBDR2',¡ñ
         'PORT': '1521'
     }
 """
