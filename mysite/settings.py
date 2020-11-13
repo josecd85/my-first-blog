@@ -26,7 +26,7 @@ SECRET_KEY = '^eun^gr-1q(sap3w^o(9f^qc2xfldepfw32!-6x)h==jwe@cgm'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'josecd85.pythonanywhere.com'
+    'josecd85.pythonanywhere.com',
 ]
 
 
