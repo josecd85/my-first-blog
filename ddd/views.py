@@ -9,8 +9,8 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 import logging
 from . import constants
-import tablib
-from import_export import resources
+# import tablib
+# from import_export import resources
 import json
 
 logging.config.dictConfig({
@@ -127,25 +127,25 @@ def alert_detail(request, pk):
 def reset_pass(request):
     form = ResetPassForm()
     if request.method == 'POST':
-        logger.debug('Request POST')
+        # logger.debug('Request POST')
         form = ResetPassForm(request.POST)
         if form.is_valid():
-            logger.debug('Formulario es valido')
+            # logger.debug('Formulario es valido')
             data = form.cleaned_data
 
             if data.get('pass_user')!=data.get('pass_confirm'):
-                logger.debug(form)
+                # logger.debug(form)
                 return render(request, 'ddd/reset_pass.html', {'form': form,'error':'Las claves deben coincidir'})
 
             logger.debug('User: ' + str(request.user))
             
             user = User.objects.get(username=request.user)
-            logger.debug('Objeto USER recuperado')
-            logger.debug('Nuevo pass: ' + str(data.get('pass_user')))
+            # logger.debug('Objeto USER recuperado')
+            # logger.debug('Nuevo pass: ' + str(data.get('pass_user')))
             
             user.set_password(data.get('pass_user'))
             user.save()
-            logger.debug('User modificado')
+            # logger.debug('User modificado')
 
             # Hacemos login para que no nos redireccione a la página de login
             user = authenticate(username=request.user, password=data.get('pass_user'))
@@ -182,33 +182,34 @@ def alerts(request):
 @login_required
 def load_file(request):
 
-    if request.method == 'POST':
-        mensaje = "El fichero ha sido cargado correctamente"
+    # if request.method == 'POST':
+    #     # mensaje = "El fichero ha sido cargado correctamente"
         
-        inf_resource = resources.modelresource_factory(model=Informe001)() # to take the model as a reference
-        new_events = request.FILES['csv_file'] # to get the file
-        # this part is to add the a column with the user id
-        dataset = tablib.Dataset(
-            headers=['anio', 'mes', 'cemptitu', 'ddd_grp1', 'importe']
-        ).load(new_events.read().decode('utf-8'), format='csv')
-        """
-        dataset.append_col(
-            col=tuple(f'{user_id}' for _ in range(dataset.height)),
-            header='user_id'
-        )
-        """
-        result = inf_resource.import_data(dataset, dry_run=True)  # Test the data import
+    #     inf_resource = resources.modelresource_factory(model=Informe001)() # to take the model as a reference
+    #     new_events = request.FILES['csv_file'] # to get the file
+    #     # this part is to add the a column with the user id
+    #     dataset = tablib.Dataset(
+    #         headers=['anio', 'mes', 'cemptitu', 'ddd_grp1', 'importe']
+    #     ).load(new_events.read().decode('utf-8'), format='csv')
+    #     """
+    #     dataset.append_col(
+    #         col=tuple(f'{user_id}' for _ in range(dataset.height)),
+    #         header='user_id'
+    #     )
+    #     """
+    #     result = inf_resource.import_data(dataset, dry_run=True)  # Test the data import
 
-        if not result.has_errors():
-            logger.debug("No se han producido errores")
-            mensaje = "El fichero ha sido cargado correctamente"
-            inf_resource.import_data(dataset, dry_run=False)  # Actually import now
-        else:
-            logger.debug("Se han producido errores")
-            mensaje = "El fichero no ha sido cargado debido a errores"
+    #     if not result.has_errors():
+    #         logger.debug("No se han producido errores")
+    #         mensaje = "El fichero ha sido cargado correctamente"
+    #         inf_resource.import_data(dataset, dry_run=False)  # Actually import now
+    #     else:
+    #         logger.debug("Se han producido errores")
+    #         mensaje = "El fichero no ha sido cargado debido a errores"
 
         
-    else:
-        mensaje = ""
+    # else:
+    #     mensaje = ""
+    mensaje = "La carga de ficheros se ha deshabilitado temporalmente"
 
     return render (request, 'ddd/load_file.html', {"mensaje":mensaje})
